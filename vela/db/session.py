@@ -27,6 +27,7 @@ def _ensure_bound() -> None:
         _BOUND = True
 
 
+@contextlib.contextmanager
 def session_scope() -> Iterator[Session]:
     """写操作用。异常自动 rollback,正常 commit。"""
     _ensure_bound()

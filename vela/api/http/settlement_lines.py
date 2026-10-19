@@ -1,0 +1,34 @@
+"""结算明细行。SettlementLineModel 没有专门 repo,够简单就不加了。"""
+
+from __future__ import annotations
+
+from flask import Blueprint, jsonify
+
+from vela.api.middleware import db
+from vela.domain.settlement.models import SettlementLineModel
+from vela.domain.settlement.repository import SettlementRepository
+
+bp = Blueprint("settlement_lines", __name__, url_prefix="/api/v1/settlements")
+
+
+@bp.get("/<settlement_sn>/lines")
+def list_lines(settlement_sn: str):
+    from sqlalchemy import select
+
+    settlement = SettlementRepository(db()).get_by_sn(settlement_sn)
+    rows = db().execute(
+        select(SettlementLineModel)
+        .where(SettlementLineModel.settlement_id == settlement.id)
+        .order_by(SettlementLineModel.id)
+    ).scalars().all()
+    items = [
+        {
+            "id": l.id,
+            "order_sn": l.order_sn,
+            "kind": getattr(l.kind, "value", str(l.kind)),
+            "amount": str(l.amount),
+            "fee": str(l.fee),
+        }
+        for l in rows
+    ]
+    return jsonify({"settlement_sn": settlement_sn, "items": items})

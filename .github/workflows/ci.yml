@@ -1,0 +1,46 @@
+# CI:测试 + 镜像构建占位。
+#
+# 注:Jenkins 老流水线(Jenkinsfile)还在跑一部分存量 job,新仓库
+# 统一走 GitHub Actions,过渡期两边并存,以本文件为准;Jenkins
+# 下线排期见平台组季度 OKR。
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Pytest
+        env:
+          VELA_DB_URL: sqlite:///:memory:
+        run: pytest
+
+  docker-build:
+    # 占位:只 build 不 push,push 在 release.yml。等镜像仓库权限
+    # 开通后接上 registry 登录步骤。
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image (placeholder)
+        run: docker build -t vela-commerce:ci-${{ github.sha }} .
