@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vela-commerce"
+version = "1.4.0"
+description = "Vela Retail 电商中台:订单 / 库存 / 价格 / 促销 / 结算 / 对账"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [{ name = "Vela Retail Platform Team" }]
+dependencies = [
+    "Flask>=3.0",
+    "SQLAlchemy>=2.0",
+    "alembic>=1.13",
+    "pydantic>=2.6",
+    "APScheduler>=3.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "factory-boy>=3.3",
+]
+
+[tool.setuptools.packages.find]
+include = ["vela*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
