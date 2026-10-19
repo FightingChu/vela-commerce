@@ -98,11 +98,10 @@ curl localhost:8300/api/v1/orders/VL260101000001
 - 查询优先走 `Repository`,裸 select 必须手动套软删过滤(`not_deleted`)
 - 新增错误码先在 `docs/error-codes.md` 登记
 - 加列三步走(nullable → 回填 → 收紧),大表索引用 CONCURRENTLY
-- 幂等键必须带 scope 构造(#VT-2217 的教训,settlement 域 README 有详述)
+- 幂等键必须用 `build_key` 构造；结算推送查重按商户和完整 token 限定
 
 ## 已知问题
 
-- `#VT-2217` 结算单重推幂等键未带 scope,线上偶发重复入账(修复排期中)
 - 分页 offset 超过 10w 性能塌方,游标方案在 `#VT-2140`,API 侧未切完
 - `legacy/` 下 v1 代码冻结待删,依赖 retention 评审结论
 

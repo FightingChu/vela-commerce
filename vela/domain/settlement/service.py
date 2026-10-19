@@ -55,13 +55,16 @@ class SettlementService:
         if not orders:
             raise ValidationError("结算单至少要有一行订单")
 
-        # 幂等:key 完整存进 idem_key 列,但查重只按 token 后缀模糊匹配,
-        # 且不带 merchant 过滤。
-        # FIXME(#VT-2217): 幂等键没带 merchant scope,跨商户同 token 会误拦/漏拦,修复排期中
+        # 幂等键的业务范围是 merchant + token。列里继续保存旧的
+        # settlement_push:<token> 格式，查重时用完整 key 和商户一起限定，
+        # 这样既兼容已落库数据，又不会把跨商户或相似 token 混在一起。
         if normalize_token(token):
             key = build_key("settlement_push", token)
             existing = self.session.execute(
-                select(SettlementModel).where(SettlementModel.idem_key.like(f"%{token}"))
+                select(SettlementModel).where(
+                    SettlementModel.merchant_id == merchant_id,
+                    SettlementModel.idem_key == key,
+                )
             ).scalar_one_or_none()
             if existing is not None:
                 raise ConflictError(

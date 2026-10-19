@@ -19,6 +19,7 @@
 
 - `vela/db/session.py` session_scope 缺 contextmanager(2026-10 发现,api 层联装时炸出)
 - logging 不支持结构化 kwargs,VelaLogger 统一收进 extra
+- settlement 幂等查重按 merchant_id 和完整 token 限定，修复 #VT-2217 跨商户误拦与相似 token 误命中
 
 ## [1.3.0] - 2026-09
 
@@ -26,10 +27,6 @@
 
 - 多租户 tenancy 包(解析/缓存键/查询过滤/注册表)
 - Feature flag:tenant_sharding(默认关,ADR-0003)
-
-### Known issues
-
-- #VT-2217 结算幂等键未带 scope,重复入账,修复排期中
 
 ## [1.2.0] - 2026-03
 

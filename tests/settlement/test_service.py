@@ -62,12 +62,12 @@ class TestIdempotency:
             service.create_settlement(7, _orders("99.00"), token="tok-1")
         assert exc.value.detail["settlement_sn"] == first.settlement_sn
 
-    def test_cross_merchant_same_token_also_blocked(self, service):
-        # 特征测试(#VT-2217):幂等查重不带 merchant 过滤,跨商户同 token
-        # 被误拦——这行断言锁定的是 bug 本身,修复后应改为放行/按商户区分
-        service.create_settlement(7, _orders("10.00"), token="shared-tok")
-        with pytest.raises(ConflictError):
-            service.create_settlement(8, _orders("10.00"), token="shared-tok")
+    def test_cross_merchant_same_token_is_independent(self, service):
+        first = service.create_settlement(7, _orders("10.00"), token="shared-tok")
+        second = service.create_settlement(8, _orders("10.00"), token="shared-tok")
+        assert first.settlement_sn != second.settlement_sn
+        assert first.merchant_id == 7
+        assert second.merchant_id == 8
 
     def test_no_token_no_idempotency(self, service):
         # 不带 token 的老调用方不做幂等,随便重推(和 order 域同款行为)
