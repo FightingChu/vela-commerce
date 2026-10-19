@@ -4,10 +4,11 @@
 报表里还能查到存量字符串,解析时注意容错。
 """
 
-from ____future__ import annotations
+from __future__ import annotations
 
 import datetime as dt
 import enum
+from decimal import Decimal
 
 from sqlalchemy import Boolean, Integer, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -40,7 +41,7 @@ class CouponModel(Base, PkMixin, TimestampMixin, TenantColumnMixin, SoftDeleteMi
     # DISCOUNT 只用 discount_rate(3 位小数,0.123 = 8.77 折)
     threshold_amount = mapped_column(MONEY_COLUMN, nullable=False)
     discount_amount = mapped_column(MONEY_COLUMN, nullable=False)
-    discount_rate: Mapped[dt.decimal] = mapped_column(Numeric(6, 3), nullable=False)
+    discount_rate: Mapped[Decimal] = mapped_column(Numeric(6, 3), nullable=False)
     stackable: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     total_quota: Mapped[int] = mapped_column(Integer, nullable=False)
     used_quota: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
