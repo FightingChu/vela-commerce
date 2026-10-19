@@ -16,3 +16,4 @@ htmlcov/
 .vscode/
 *.swp
 .DS_Store
+push_to_remotes.bat
