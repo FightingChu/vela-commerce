@@ -20,6 +20,21 @@ _RESERVED = set(logging.LogRecord("", 0, "", 0, "", (), None).__dict__) | {
 _CONFIGURED = False
 
 
+class VelaLogger(logging.Logger):
+    """支持 log.info("msg", key=value) 的结构化写法。
+
+    标准库的 kwargs 只认 extra/exc_info 那几个,业务代码到处都是
+    key=value 风格,统一在 _log 里收进 extra,格式化器才能拿到。
+    """
+
+    def _log(self, level, msg, args, exc_info=None, extra=None,
+             stack_info=False, stacklevel=1, **kw):
+        if kw:
+            extra = dict(extra or {}, **kw)
+        super()._log(level, msg, args, exc_info=exc_info, extra=extra,
+                     stack_info=stack_info, stacklevel=stacklevel)
+
+
 def setup_logging(level: str = "INFO", *, force: bool = False) -> None:
     global _CONFIGURED
     if _CONFIGURED and not force:
@@ -52,4 +67,8 @@ class _JsonFormatter(logging.Formatter):
 def get_logger(name: str) -> logging.Logger:
     if not _CONFIGURED:
         setup_logging()
-    return logging.getLogger(name)
+    logger = logging.getLogger(name)
+    # 已存在的 logger(第三方库先建过)也换上,否则同名字段两种行为
+    if not isinstance(logger, VelaLogger):
+        logger.__class__ = VelaLogger
+    return logger
