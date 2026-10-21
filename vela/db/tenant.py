@@ -1,7 +1,7 @@
 """多租户在 db 层的钩子。
 
 现状是"隐式":模型带 tenant_id 列,中间件把租户塞进线程局部,
-查询基类自动过滤。显式化方案在 ADR-0006 里讨论过,还没排期。
+查询基类自动过滤。显式化过渡方案见 ADR-0006(apply_tenant_filter)。
 """
 
 from __future__ import annotations

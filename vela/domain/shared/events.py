@@ -2,8 +2,8 @@
 
     {"type": str, "payload": dict, "trace": str|None, "occurred_at": datetime}
 
-history:最早连 type 都没有,2025Q2 统一成上面这个形状。事件版本化
-(信封)在 ADR-0005 里有方案,没排期。
+history:最早连 type 都没有,2025Q2 统一成上面这个形状。
+事件信封规范见 ADR-0005,四键约定即当前稳定格式。
 """
 
 from __future__ import annotations

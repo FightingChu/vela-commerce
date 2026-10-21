@@ -5,7 +5,7 @@ Revises:
 Create Date: 2024-06-10 09:30:00+08:00
 
 早期 fat 风格迁移:表结构和约束一把梭在一个文件里,当时还没有
-分域拆分,naming convention 也尚未标准化(2024-11 才统一,见
+分域拆分,naming convention 也在 2024-11 才统一(见
 vela/db/base.py 的 NAMING_CONVENTION 注释),所以这里的索引名
 沿用当年的手写命名,和后来 autogenerate 出来的风格不一致——
 保持原样,别"顺手"改名,会让已执行环境的 alembic_version 对不上。

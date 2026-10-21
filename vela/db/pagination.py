@@ -1,6 +1,6 @@
-"""分页。现状是 offset/limit,深翻页性能问题见 README 已知问题第 2 条。
+"""分页。现状是 offset/limit,深翻页性能问题见 README 已知问题。
 
-报表导出侧的 batch_iter() 是 2026-04 加的,API 侧还没切。
+报表导出侧走 batch_iter() 分批游标(2026-04 起),API 侧维持 offset/limit。
 """
 
 from __future__ import annotations

@@ -1,7 +1,7 @@
-"""Flask 预留钩子。
+"""Flask 请求钩子。
 
-app 侧还没接(排期见 #VT-880),但头协议先在这里定死,
-其他模块别自己去读 X-Vela-* 头。注意这里不 import flask,
+app 侧统一从这里接入(#VT-880),X-Vela-* 头协议以本文件为准,
+其他模块别自己去读。注意这里不 import flask,
 拿的是纯 dict headers,方便 WSGI 之外的入口复用。
 """
 
@@ -10,7 +10,7 @@ from __future__ import annotations
 from vela.auditing.context import AuditContext, bind, unbind
 from vela.config.constants import TENANT_HEADER, TRACE_HEADER
 
-# 网关还没透传 actor,先留常量;没有就记 anonymous
+# 网关不透传 actor 时记 anonymous
 ACTOR_HEADER = "X-Vela-Actor"
 ANONYMOUS_ACTOR = "anonymous"
 

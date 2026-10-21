@@ -5,7 +5,7 @@
 以及 run_all_once 撞上正在跑的定时轮。
 
 多实例部署时这里挡不住跨进程重入,靠 DB 行锁/状态机兜底。
-Redis 版在 #VT-2190,排期没定,先别在关键路径上依赖它。
+Redis 版在 #VT-2190,关键路径请依赖 DB 行锁/状态机。
 """
 
 from __future__ import annotations

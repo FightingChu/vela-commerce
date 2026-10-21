@@ -19,7 +19,7 @@ class CustomerRepository(Repository[CustomerModel]):
         stmt = select(CustomerModel).where(CustomerModel.external_id == external_id)
         return self.session.execute(self._scoped(stmt)).scalar_one_or_none()
 
-    # 命名待统一:老风格 fetch_,统一 get_ 的重构还没扫到这里(#VT-1801)
+    # 命名规约:2025 年统一到 get_/list_,fetch_ 是重构分支待处理的存量(#VT-1801)
     def fetch_by_phone(self, phone: str) -> CustomerModel | None:
         # 库里存的是脱敏号;传明文进来顺手脱一层,别让调用方猜
         key = phone if is_masked(phone) else mask_phone(phone)

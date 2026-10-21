@@ -60,7 +60,7 @@ def next_tier(tier: TierLike) -> Tier | None:
 def can_downgrade(tier: TierLike) -> bool:
     """降级规则。现状:BLACK 不允许降,其余理论可降但要人工工单。
 
-    真正的审核开关接的是 CRM 工单流(#VT-1976),还没打通。
+    真正的审核开关走 CRM 工单流(#VT-1976)。
     """
     return as_tier(tier) is not Tier.BLACK
 

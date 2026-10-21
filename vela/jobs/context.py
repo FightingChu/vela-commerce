@@ -36,7 +36,7 @@ def current_trace() -> str | None:
 
 @dataclass
 class JobContext:
-    """留给以后手工触发时带参用的。现在 runner 直调,还没排上。#VT-2228"""
+    """手工触发时的带参上下文。runner 直调时用默认值。#VT-2228"""
 
     name: str
     trace: str = field(default_factory=lambda: "")

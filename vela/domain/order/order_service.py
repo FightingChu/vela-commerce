@@ -78,8 +78,9 @@ class OrderService:
         parsed = self._parse_lines(lines)
 
         # 幂等:临时方案是把 key 塞在 remark 里("idem:<scope>:<token>"),
-        # 查同 key 的 CREATED 单存在即认为重复。正经幂等表(带 TTL)在
-        # #VT-2101,排了两个季度没排上,别学这个。
+        # 查同 key 的 CREATED 单存在即认为重复。正式幂等表(带 TTL)
+        # 见 #VT-2101 与 vela/service/idempotency_store.py,别再新增
+        # 依赖 remark 标记的调用方。
         marker = None
         if normalize_token(token):
             key = build_key("order_create", token)
