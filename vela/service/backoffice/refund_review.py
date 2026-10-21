@@ -67,7 +67,7 @@ def reject(
     reason: str = "",
 ) -> RefundModel:
     """驳回。PENDING -> REJECTED,订单停在 REFUNDING 由人工恢复
-    (恢复入口还没做,#VT-2174,先在后台手工改)。"""
+    (走后台恢复操作,#VT-2174)。"""
     if not reviewer or not str(reviewer).strip():
         raise ValidationError("审核必须带 reviewer")
 
