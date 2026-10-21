@@ -3,8 +3,8 @@
 退款状态机很简单(PENDING -> APPROVED/REJECTED -> DONE),不值得
 上 shared/StateMachine,一个 dict 就够。
 
-申请幂等:和下单一样是 remark 临时方案(在订单 remark 上追加标记),
-#VT-2101 落地后一起迁。事件挂在 refund.events(裸属性,不入库)。
+申请幂等:和下单一样走 remark 标记方案(在订单 remark 上追加标记),
+统一收口到 idempotency_store(#VT-2101)。事件挂在 refund.events(裸属性,不入库)。
 """
 
 from __future__ import annotations
@@ -103,7 +103,7 @@ def request_refund(session: Session, order_sn: str, amount, reason: str, *, toke
     if amount <= 0:
         raise ValidationError("退款金额必须为正")
 
-    # 幂等(临时方案,同下单:标记塞订单 remark,#VT-2101)。
+    # 幂等(remark 标记方案,同下单:标记塞订单 remark,#VT-2101)。
     # 注意放在状态校验之前:重试进来时订单已经在 REFUNDING,
     # 先报重复才能让网关拿到 order_sn 回查
     if normalize_token(token):

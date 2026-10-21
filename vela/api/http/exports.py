@@ -24,7 +24,7 @@ def export_types():
 @bp.post("/orders")
 def export_orders():
     body = request.get_json(silent=True) or {}
-    # TODO: 分页游标切换,#VT-2140
+    # 游标分页方案见 #VT-2140,本接口维持批量上限控制
     limit = int(body.get("limit") or get_settings().max_export_rows)
     if limit <= 0 or limit > get_settings().max_export_rows:
         raise ValidationError(

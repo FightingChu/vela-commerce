@@ -56,9 +56,9 @@ class OrderRepository(Repository[OrderModel]):
         return self.session.execute(self._scoped(stmt)).scalars().all()
 
     def find_by_remark_marker(self, marker: str, *, status: OrderStatus | None = None) -> OrderModel | None:
-        """按 remark 里的标记查单。幂等临时方案专用,别拿去干别的。
+        """按 remark 里的标记查单。幂等 remark 方案专用,别拿去干别的。
 
-        见 create_order 里的注释:幂等键现在塞在 remark 里(#VT-2101)。
+        见 create_order 里的注释:幂等键塞在 remark 里(#VT-2101)。
         """
         stmt = select(OrderModel).where(OrderModel.remark == marker)
         if status is not None:

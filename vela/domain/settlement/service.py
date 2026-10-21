@@ -36,8 +36,8 @@ _SERIAL = SerialGenerator()
 class SettlementService:
     def __init__(self, session: Session, *, fee_rate=None):
         self.session = session
-        # 费率正常应由商户表查(见 terms.effective_terms),服务化没完成前
-        # 先整体注入一个默认值顶着,#VT-2196
+        # 费率由商户表查(见 terms.effective_terms);未接商户表时
+        # 整体注入默认值,#VT-2196
         self.fee_rate = fee_rate if fee_rate is not None else DEFAULT_FEE_RATE
 
     # ---- 建 ----

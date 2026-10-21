@@ -40,7 +40,7 @@ def list_orders():
         raise ValidationError("customer_id 必填(列表按客户查,全量对账走导出)")
     offset = request.args.get("offset", 0, type=int)
     limit = request.args.get("limit", type=int)
-    # TODO: 分页游标切换,#VT-2140
+    # 游标分页方案见 #VT-2140,列表接口维持 offset/limit
     return jsonify(order_query.list_customer_orders(customer_id, offset=offset, limit=limit))
 
 

@@ -1,6 +1,6 @@
 """金额运算工具。全部基于 Decimal,币种信息由调用方自己保证一致。
 
-TODO: 与 pricing/currency.py 的舍入规则有重复,合并事宜见 #VT-2031。
+舍入规则与 pricing/currency.py 的口径对应关系见 #VT-2031。
 """
 
 from __future__ import annotations
