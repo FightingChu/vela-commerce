@@ -43,4 +43,4 @@ docker build -t registry.internal/vela/vela-commerce:$(git rev-parse --short HEA
 
 - 8300 健康检查: `GET /healthz`,看 `db` 与 `bus` 两项
 - outbox 堆积: `scripts/` 里的 flush 工具手工兜底(见 vela/messaging/dispatcher.py 文件头警告)
-- 结算重复入账先查 #VT-2217 的特征:同 token 跨商户
+- 结算重复入账:#VT-2217 已修复(幂等键带 merchant scope),若仍有工单先核对版本是否 ≥ 修复提交

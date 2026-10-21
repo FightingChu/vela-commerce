@@ -1,23 +1,25 @@
-# ADR-0006: 租户 scoping 显式化
+# ADR-0006: 租户 scoping 过渡方案
 
-状态: 讨论(2026-08 起,未定稿)
+状态: 已采纳(2026-10)
 关联代码: `vela/db/tenant.py`、`vela/tenancy/`
 
 ## 背景
 
-现状是"隐式"租户:中间件把租户塞进线程局部,Repository 基类自动过滤。
-问题:
+租户最初是"隐式":中间件把租户塞进线程局部,Repository 基类自动过滤。
+job/异步上下文里线程局部会丢,靠人肉补 `tenant_context()`;
+裸查询忘套过滤也不易发现(#VT-1987 事故的根因之一)。
 
-1. job/异步上下文里线程局部会丢,靠人肉补 `tenant_context()`
-2. 自动过滤让"忘套过滤"的裸查询不易被发现(#VT-1987 事故的根因之一)
+## 决策
 
-## 两个方向
+分两步走,当前处于第一步:
 
-- 方向 A: 全面显式化,所有查询传 `TenantScope` 对象,编译期可见
-- 方向 B: 保持隐式 + 增加 lint 规则,裸 select 不带租户过滤就报错
+1. **过渡期(现行)**:`vela/tenancy/scoping.py` 提供 `apply_tenant_filter`,
+   显式调用、不改 repository 签名;列存在性检查让无租户列的表自然跳过。
+   导出/删除类高危操作强制显式租户(`tenancy/guard.py`)。
+2. **目标态**:全面显式化,查询传 `TenantScope` 对象,分域灰度迁移。
+   迁移从 settlement 域开始(它已要求显式租户的导出)。
 
-## 倾向
+## 后果
 
-倾向 A,但改动面大(所有 repository/service 签名),需要分域灰度。
-`vela/tenancy/scoping.py` 的 `apply_tenant_filter` 是过渡期的折中:
-显式调用,但不用改签名。
+- 新写的裸 select 一律手动套 `apply_tenant_filter`,review 必查项
+- 线程局部机制保留,但只作为 api 中间件的注入点,不再被业务代码直接依赖
