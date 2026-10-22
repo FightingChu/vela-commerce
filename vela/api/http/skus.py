@@ -6,7 +6,6 @@ from flask import Blueprint, jsonify, request
 
 from vela.api.middleware import db
 from vela.api.schemas import SkuCreate
-from vela.db import not_deleted
 from vela.db.pagination import paginate
 from vela.domain.inventory.item_model import SkuModel
 

@@ -81,7 +81,7 @@ class CsvSink:
         if self._owns_fp:
             self._fp.close()
 
-    def __enter__(self) -> "CsvSink":
+    def __enter__(self) -> CsvSink:
         return self
 
     def __exit__(self, exc_type, exc, tb) -> None:

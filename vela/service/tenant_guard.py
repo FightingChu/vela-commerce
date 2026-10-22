@@ -8,7 +8,7 @@ contextmanager,让 backoffice 的导出入口写起来少一层缩进。
 from __future__ import annotations
 
 import contextlib
-from typing import Iterator
+from collections.abc import Iterator
 
 from vela.db import DEFAULT_TENANT, current_tenant, tenant_context
 from vela.tenancy.guard import audit_cross_tenant_access, require_explicit_tenant

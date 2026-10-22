@@ -8,7 +8,6 @@ from __future__ import annotations
 from flask import Blueprint, jsonify, request
 
 from vela.api.middleware import db
-from vela.api.schemas import ReservationIn
 from vela.config.errors import ExternalServiceError, ValidationError
 
 bp = Blueprint("stock", __name__, url_prefix="/api/v1/stock")

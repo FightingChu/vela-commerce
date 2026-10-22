@@ -14,13 +14,13 @@ from sqlalchemy.orm import Session
 
 from vela.config.errors import ValidationError
 from vela.config.logging import get_logger
+from vela.domain.inventory.reservation_repo import ReservationRepository
 from vela.domain.order import (
     Order,
     OrderRepository,
     cancel_order,
     split_order,
 )
-from vela.domain.inventory.reservation_repo import ReservationRepository
 from vela.service import audit_bridge, validation
 
 log = get_logger(__name__)

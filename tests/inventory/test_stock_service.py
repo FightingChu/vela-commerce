@@ -136,7 +136,7 @@ class TestReconcile:
         assert rows[0]["delta"] == -2
 
     def test_diff_empty_when_equal(self, db_session):
-        sku, _ = _seed_sku(db_session)
+        _sku, _ = _seed_sku(db_session)
         assert reconcile.diff(
             reconcile.take_snapshot(db_session), reconcile.take_snapshot(db_session)
         ) == []

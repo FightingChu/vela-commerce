@@ -12,12 +12,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 import vela.config.settings as settings_mod
+
 # 注意:不能写 `import vela.config.flags as flags_mod`——
 # vela/config/__init__.py 里 re-export 了同名函数 flags,会把模块属性盖掉,
 # import-as 拿到的是函数不是模块。用 from-import 才拿得到真身。
 from vela.config.flags import reset_flags
-from vela.db.base import Base
 from vela.db import tenant as tenant_mod
+from vela.db.base import Base
 
 
 @pytest.fixture(autouse=True)

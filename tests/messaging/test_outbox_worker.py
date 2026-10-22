@@ -2,10 +2,6 @@
 
 from __future__ import annotations
 
-import datetime as dt
-
-import pytest
-
 from vela.config.clocks import FrozenClock
 from vela.messaging import EventBus
 from vela.messaging.dispatcher import flush_pending

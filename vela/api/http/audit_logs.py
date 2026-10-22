@@ -5,9 +5,9 @@ from __future__ import annotations
 from flask import Blueprint, jsonify, request
 
 from vela.api.middleware import db
+from vela.auditing.models import AuditLogModel
 from vela.config.errors import NotFoundError
 from vela.db.pagination import paginate
-from vela.auditing.models import AuditLogModel
 
 bp = Blueprint("audit_logs", __name__, url_prefix="/api/v1/audit-logs")
 

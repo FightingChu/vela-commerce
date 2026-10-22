@@ -46,13 +46,13 @@ class TestCurrentPrice:
         ])
         db_session.flush()
         entry = repo.current_price(101)
-        assert entry.sale_price == Decimal("88")
+        assert entry.sale_price == Decimal(88)
 
     def test_sale_price_null_falls_back_to_list(self, db_session, repo):
         db_session.add(make_entry(sku_id=102, list_price="66"))
         db_session.flush()
         entry = repo.current_price(102)
-        assert entry.list_price == Decimal("66")
+        assert entry.list_price == Decimal(66)
         assert entry.sale_price is None
 
     def test_effective_window(self, db_session, repo):
@@ -66,10 +66,10 @@ class TestCurrentPrice:
         db_session.flush()
         # NOW 时刻:第二条刚好 from<=at 但 to>at 才算,第三条无限期也生效,取便宜的 60
         entry = repo.current_price(103, at=NOW)
-        assert entry.list_price == Decimal("60")
+        assert entry.list_price == Decimal(60)
         # 窗口外只剩无限期那条
         later = repo.current_price(103, at=NOW + 10 * DAY)
-        assert later.list_price == Decimal("70")
+        assert later.list_price == Decimal(70)
 
     def test_channel_scoped(self, db_session, repo):
         db_session.add_all([
@@ -77,15 +77,15 @@ class TestCurrentPrice:
             make_entry(sku_id=104, list_price="80", channel="douyin"),
         ])
         db_session.flush()
-        assert repo.current_price(104).list_price == Decimal("100")
-        assert repo.current_price(104, channel="douyin").list_price == Decimal("80")
+        assert repo.current_price(104).list_price == Decimal(100)
+        assert repo.current_price(104, channel="douyin").list_price == Decimal(80)
         assert repo.current_price(104, channel="taobao") is None
 
     def test_soft_deleted_filtered(self, db_session, repo):
         entry = make_entry(sku_id=105, list_price="100", sale_price="42")
         db_session.add(entry)
         db_session.flush()
-        assert repo.current_price(105).sale_price == Decimal("42")
+        assert repo.current_price(105).sale_price == Decimal(42)
         repo.delete(entry)  # 软删
         db_session.flush()
         assert repo.current_price(105) is None
@@ -107,7 +107,7 @@ class TestChangePrice:
         log = db_session.execute(select(PriceChangeLogModel)).scalar_one()
         assert log.entry_id == entry.id
         # old_price 记的是改之前的有效价(list,sale 为空)
-        assert log.old_price == Decimal("100")
+        assert log.old_price == Decimal(100)
         assert log.new_price == Decimal("79.90")
         assert log.changed_by == "ops.li"
         assert log.reason == "双11活动"
@@ -117,11 +117,11 @@ class TestChangePrice:
         db_session.add(entry)
         db_session.flush()
 
-        repo.change_price(entry, Decimal("85"), "ops.wang")
+        repo.change_price(entry, Decimal(85), "ops.wang")
         db_session.flush()
 
         log = db_session.execute(select(PriceChangeLogModel)).scalar_one()
-        assert log.old_price == Decimal("90")
+        assert log.old_price == Decimal(90)
         assert log.reason is None  # 没填 reason 就是空
 
     def test_price_history_includes_deleted(self, db_session, repo):

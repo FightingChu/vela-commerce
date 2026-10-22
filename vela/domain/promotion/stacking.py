@@ -12,7 +12,7 @@ from vela.config.flags import flags
 from vela.domain.promotion.rules import apply_coupon
 from vela.domain.shared import to_decimal
 
-ZERO = Decimal("0")
+ZERO = Decimal(0)
 
 
 def best_single(coupons: list[dict], amount) -> Decimal:

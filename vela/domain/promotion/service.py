@@ -11,7 +11,6 @@ from decimal import Decimal
 from sqlalchemy.orm import Session
 
 from vela.config.clocks import utc_now
-from vela.config.errors import NotFoundError
 from vela.config.logging import get_logger
 from vela.db import current_session
 from vela.domain.promotion import events as ev

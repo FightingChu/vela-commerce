@@ -12,7 +12,6 @@ from sqlalchemy.orm import Session
 from vela.config.errors import NotFoundError, ValidationError
 from vela.config.logging import get_logger
 from vela.domain.order import Order, OrderRepository
-from vela.domain.order.states import OrderStatus
 from vela.service import audit_bridge
 from vela.service.converters import money
 
@@ -50,7 +49,7 @@ def adjust_line_price(
     if price < 0:
         raise ValidationError(f"新单价不能为负: {price}")
 
-    line = next((l for l in agg.lines if l.id == line_id), None)
+    line = next((li for li in agg.lines if li.id == line_id), None)
     if line is None:
         raise NotFoundError(
             f"订单 {order_sn} 没有行 {line_id}",

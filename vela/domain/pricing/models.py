@@ -12,13 +12,13 @@ from sqlalchemy import Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from vela.db import (
+    MONEY_COLUMN,
     Base,
     PkMixin,
-    TimestampMixin,
     SoftDeleteMixin,
     TenantColumnMixin,
+    TimestampMixin,
     UTCDateTime,
-    MONEY_COLUMN,
 )
 
 

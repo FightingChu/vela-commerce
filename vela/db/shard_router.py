@@ -5,8 +5,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from vela.config.flags import flags
 from vela.config.settings import get_settings
 
@@ -26,7 +24,7 @@ def shard_of(tenant_id: str) -> str:
 class ShardRouter:
     """flag 关闭:一律主库;开启:按逻辑分片映射到物理库。"""
 
-    def __init__(self, shard_urls: Optional[dict[str, str]] = None):
+    def __init__(self, shard_urls: dict[str, str] | None = None):
         self._shard_urls = shard_urls or {}
 
     def route(self, tenant_id: str) -> str:
@@ -44,7 +42,7 @@ class ShardRouter:
         return sorted(self._shard_urls)
 
 
-_default_router: Optional[ShardRouter] = None
+_default_router: ShardRouter | None = None
 
 
 def get_router() -> ShardRouter:

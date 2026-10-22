@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import pytest
-
-import vela.domain.customer  # noqa: F401
-import vela.domain.inventory  # noqa: F401
-import vela.domain.order  # noqa: F401
-import vela.domain.pricing  # noqa: F401
-import vela.domain.promotion  # noqa: F401
+import vela.domain.customer
+import vela.domain.inventory
+import vela.domain.order
+import vela.domain.pricing
+import vela.domain.promotion
 import vela.domain.settlement  # noqa: F401
-
 from vela.service.inventory_ops import stock_view
 
 

@@ -30,7 +30,7 @@ def register(
     *,
     tier: str = "V0",
     channel: str | None = None,
-) -> "object":
+) -> object:
     """注册新客。channel 目前只进审计(客户表没有来源列,加列在
     #VT-2168,先记着别丢信息)。重复注册抛 ConflictError。"""
     customer = register_customer(external_id, nickname, phone, tier, session=session)
@@ -63,7 +63,7 @@ def customer_view(session: Session, customer_id: int) -> dict | None:
     }
 
 
-def change_tier(session: Session, customer_id: int, tier: str) -> "object":
+def change_tier(session: Session, customer_id: int, tier: str) -> object:
     """升降级。降级在 domain 层被拦(只升不降,人工降级走 CRM 工单)。"""
     customer = update_tier(customer_id, tier, session=session)
     audit_bridge.record_admin_action(

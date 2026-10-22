@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """HTTP 支付网关适配器,走 BaseClient。
 
 对端是公司统一支付网关(不是渠道直连),报文就是字典进字典出,
@@ -19,11 +18,11 @@ from vela.integrations.payment.errors import (
     PaymentDeclinedError,
 )
 from vela.integrations.payment.gateway import (
-    PaymentRequest,
-    PaymentResult,
     STATUS_FAILED,
     STATUS_PENDING,
     STATUS_REFUNDED,
+    PaymentRequest,
+    PaymentResult,
 )
 
 log = get_logger(__name__)

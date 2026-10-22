@@ -15,7 +15,6 @@ from vela.domain.order.models import OrderLineModel, OrderModel
 from vela.domain.order.states import OrderStateMachine, OrderStatus
 from vela.domain.shared import (
     ZERO,
-    StateMachine,
     allocate_pro_rata,
     round_half_up,
     sum_amounts,
@@ -67,7 +66,7 @@ class Order:
         if len(list(weights)) != len(self.lines):
             raise ValidationError("权重数量和行数不一致")
         parts = allocate_pro_rata(total_discount, weights)
-        for line, part in zip(self.lines, parts):
+        for line, part in zip(self.lines, parts, strict=True):
             line.discount_share = part
         self.model.discount_amount = sum_amounts(*parts)
         self.recompute_total()

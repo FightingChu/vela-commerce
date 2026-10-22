@@ -71,7 +71,7 @@ class TestPeriod:
         assert start.astimezone(dt.timezone(dt.timedelta(hours=8))).weekday() == 0
 
     def test_week_by_date_in_week(self):
-        start, end = vela.reports.resolve_period("2026-01-07", "week")
+        start, _end = vela.reports.resolve_period("2026-01-07", "week")
         # 2026-01-07 是周三,那周周一是 01-05 北京时间 00:00
         assert start.isoformat() == "2026-01-04T16:00:00+00:00"
 
@@ -119,7 +119,7 @@ class TestCsvWriter:
         text = target.read_text(encoding="utf-8-sig")
         lines = text.splitlines()
         assert lines[0] == "券码,备注,金额"
-        assert "CPN1,短备注,12.50" == lines[1]
+        assert lines[1] == "CPN1,短备注,12.50"
         # 超长单元格截断加标
         assert "...[truncated]" in lines[2]
         # BOM 在(utf-8-sig 写出)

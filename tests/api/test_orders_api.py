@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """订单 HTTP 层。
 
 测试环境用文件 sqlite(settings 走 VELA_DB_URL),内存库不行——
@@ -11,15 +10,14 @@ import pytest
 
 pytest.importorskip("flask")
 
-from vela.api.app import create_app  # noqa: E402
-from vela.config.constants import TENANT_HEADER, TRACE_HEADER  # noqa: E402
-from vela.db.engine import primary_engine, reset_engines  # noqa: E402
-from vela.db.base import Base  # noqa: E402
-from vela.db.session import reset_session_factories  # noqa: E402
+from vela.api.app import create_app
+from vela.config.constants import TENANT_HEADER, TRACE_HEADER
+from vela.db.base import Base
+from vela.db.engine import primary_engine, reset_engines
+from vela.db.session import reset_session_factories
 
 
 def _patched_scope():
-    from contextlib import closing
 
     from vela.db.session import replica_scope
 
@@ -29,18 +27,18 @@ def _patched_scope():
 
 def _import_all_models():
     # 建全表前得让所有 models 模块先注册进 Base.metadata,和根 conftest 同款套路
-    import vela.auditing.models  # noqa: F401
-    import vela.domain.customer.models  # noqa: F401
-    import vela.domain.inventory.item_model  # noqa: F401
-    import vela.domain.inventory.reservation_model  # noqa: F401
-    import vela.domain.inventory.stock_model  # noqa: F401
-    import vela.domain.order.models  # noqa: F401
-    import vela.domain.order.returns  # noqa: F401
-    import vela.domain.pricing.models  # noqa: F401
-    import vela.domain.promotion.coupon_model  # noqa: F401
-    import vela.domain.promotion.redemption_model  # noqa: F401
-    import vela.domain.settlement.models  # noqa: F401
-    import vela.messaging.queue_model  # noqa: F401
+    import vela.auditing.models
+    import vela.domain.customer.models
+    import vela.domain.inventory.item_model
+    import vela.domain.inventory.reservation_model
+    import vela.domain.inventory.stock_model
+    import vela.domain.order.models
+    import vela.domain.order.returns
+    import vela.domain.pricing.models
+    import vela.domain.promotion.coupon_model
+    import vela.domain.promotion.redemption_model
+    import vela.domain.settlement.models
+    import vela.messaging.queue_model
     import vela.tenancy.models  # noqa: F401
 
 

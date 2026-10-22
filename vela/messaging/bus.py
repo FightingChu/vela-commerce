@@ -7,7 +7,7 @@ history:最早想直接用 blinker,2025Q3 因为租户隔离的诉求放弃
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 from vela.config.logging import get_logger
 from vela.domain.shared.events import event_type

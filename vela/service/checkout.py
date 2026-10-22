@@ -13,7 +13,8 @@ reserve,凭证(ReservationModel 主键)落进行快照,取消/释放时原样
 from __future__ import annotations
 
 import contextlib
-from typing import Iterator
+from collections.abc import Iterator
+from decimal import Decimal
 
 from sqlalchemy.orm import Session
 
@@ -21,8 +22,8 @@ from vela.db import session_scope, tenant_context
 from vela.domain.inventory import reserve as inventory_reserve
 from vela.domain.order import DuplicateOrderError, OrderService  # noqa: F401 DuplicateOrderError 给调用方 re-export
 from vela.domain.pricing import get_quote
-from vela.service.converters import line_to_view, money
 from vela.service import trace as trace_mod
+from vela.service.converters import line_to_view, money
 
 _scope = session_scope
 
@@ -31,9 +32,8 @@ _scope = session_scope
 def _checkout_session(tenant: str | None) -> Iterator[Session]:
     """租户给了就先切上下文再开会话,顺序反了首条 SQL 就串租户。"""
     ctx = tenant_context(tenant) if tenant else contextlib.nullcontext()
-    with ctx:
-        with _scope() as session:
-            yield session
+    with ctx, _scope() as session:
+        yield session
 
 
 def _build_reserver(session: Session):

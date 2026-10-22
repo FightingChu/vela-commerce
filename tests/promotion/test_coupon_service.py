@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """核销链路:幂等 / 限额 / 窗口 / 总量 / 退券。
 
 文件顶部 import 两个模型模块,确保建表(conftest 的 db_session 靠
@@ -11,11 +10,10 @@ import datetime as dt
 from decimal import Decimal
 
 import pytest
-
-import vela.domain.promotion.coupon_model  # noqa: F401 确保建表
-import vela.domain.promotion.redemption_model  # noqa: F401
 from sqlalchemy import select
 
+import vela.domain.promotion.coupon_model
+import vela.domain.promotion.redemption_model  # noqa: F401
 from vela.config.clocks import utc_now
 from vela.domain.promotion.coupon_model import CouponKind, CouponModel
 from vela.domain.promotion.errors import (
@@ -31,21 +29,21 @@ D = Decimal
 
 
 def _mk_coupon(session, code="SAVE20", **kw) -> CouponModel:
-    base = dict(
-        code=code,
-        title="测试券",
-        kind=CouponKind.NO_THRESHOLD,
-        threshold_amount=D("0"),
-        discount_amount=D("20"),
-        discount_rate=D("1.000"),
-        stackable=False,
-        total_quota=10,
-        used_quota=0,
-        per_customer_limit=1,
-        valid_from=None,
-        valid_to=None,
-        enabled=True,
-    )
+    base = {
+        "code": code,
+        "title": "测试券",
+        "kind": CouponKind.NO_THRESHOLD,
+        "threshold_amount": D("0"),
+        "discount_amount": D("20"),
+        "discount_rate": D("1.000"),
+        "stackable": False,
+        "total_quota": 10,
+        "used_quota": 0,
+        "per_customer_limit": 1,
+        "valid_from": None,
+        "valid_to": None,
+        "enabled": True,
+    }
     base.update(kw)
     coupon = CouponModel(**base)
     session.add(coupon)

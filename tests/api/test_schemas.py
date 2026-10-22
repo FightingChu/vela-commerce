@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """DTO 边界。校验规则是 HTTP 层的合同,改动要过测试。"""
 
 from __future__ import annotations

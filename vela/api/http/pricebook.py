@@ -31,7 +31,6 @@ def _view(e: PriceBookEntryModel) -> dict:
 
 @bp.get("")
 def list_entries():
-    from sqlalchemy import select
 
     sku_id = request.args.get("sku_id", type=int)
     channel = request.args.get("channel")

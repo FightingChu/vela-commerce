@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # compat_dict.py -- v1 API dict 兼容层
 # v1 对外 API 全是 camelCase,v2 内部统一 snake_case,靠这两个映射表互转。
 # 2021-11 迁 v2 网关后这层就没人要了,可以删(等 #VT-1503)。

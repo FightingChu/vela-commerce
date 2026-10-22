@@ -6,9 +6,9 @@
 from __future__ import annotations
 
 import decimal
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal
 
-ZERO = Decimal("0")
+ZERO = Decimal(0)
 CENT = Decimal("0.01")
 
 _CTX_QUICK = decimal.Context(prec=28, rounding=ROUND_HALF_UP)
@@ -57,7 +57,7 @@ def allocate_pro_rata(total: Decimal, weights) -> list[Decimal]:
         raise ValueError("权重合计必须为正")
     parts = []
     running = ZERO
-    for i, w in enumerate(weight_values[:-1]):
+    for w in weight_values[:-1]:
         part = round_half_up(total * w / weight_sum)
         parts.append(part)
         running += part

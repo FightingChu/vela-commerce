@@ -8,7 +8,6 @@ from vela.api.middleware import db
 from vela.config.errors import ValidationError
 from vela.db.pagination import paginate
 from vela.domain.order.models import OrderModel
-from vela.domain.order.repository import OrderRepository
 
 bp = Blueprint("order_admin", __name__, url_prefix="/api/v1/order-admin")
 

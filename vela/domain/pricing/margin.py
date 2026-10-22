@@ -9,7 +9,7 @@ from decimal import Decimal
 
 from vela.config.errors import ValidationError
 from vela.domain.pricing.tax import TaxRate
-from vela.domain.shared import to_decimal, round_half_up
+from vela.domain.shared import round_half_up, to_decimal
 
 
 def margin_rate(sale, cost) -> Decimal:

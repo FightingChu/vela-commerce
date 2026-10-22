@@ -124,13 +124,13 @@ class TestSegmentByRecency:
 
 class TestRfmTier:
     def test_high(self):
-        assert rfm_tier(5, 20, decimal.Decimal("8000")) == "高"
+        assert rfm_tier(5, 20, decimal.Decimal(8000)) == "高"
 
     def test_mid(self):
-        assert rfm_tier(60, 4, decimal.Decimal("2000")) == "中"
+        assert rfm_tier(60, 4, decimal.Decimal(2000)) == "中"
 
     def test_low(self):
-        assert rfm_tier(400, 1, decimal.Decimal("10")) == "低"
+        assert rfm_tier(400, 1, decimal.Decimal(10)) == "低"
 
     def test_accepts_str_amount(self):
         assert rfm_tier(10, 12, "6000") == "高"

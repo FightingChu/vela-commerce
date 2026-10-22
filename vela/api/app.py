@@ -22,8 +22,8 @@ log = get_logger(__name__)
 from vela.api.http.audit_logs import bp as audit_logs_bp  # noqa: E402
 from vela.api.http.coupon_redemptions import bp as coupon_redemptions_bp  # noqa: E402
 from vela.api.http.coupons import bp as coupons_bp  # noqa: E402
-from vela.api.http.customers import bp as customers_bp  # noqa: E402
 from vela.api.http.customer_addresses import bp as customer_addresses_bp  # noqa: E402
+from vela.api.http.customers import bp as customers_bp  # noqa: E402
 from vela.api.http.exports import bp as exports_bp  # noqa: E402
 from vela.api.http.health_extra import bp as health_extra_bp  # noqa: E402
 from vela.api.http.merchants import bp as merchants_bp  # noqa: E402

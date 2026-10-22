@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, ClassVar
 
 from vela.config.errors import ConflictError
 
@@ -10,7 +10,7 @@ from vela.config.errors import ConflictError
 class StateMachine:
     """子类声明 transitions: {当前态: {目标态: 动作名}}。"""
 
-    transitions: dict[str, dict[str, str]] = {}
+    transitions: ClassVar[dict[str, dict[str, str]]] = {}
 
     @classmethod
     def can_transition(cls, current: str, target: str) -> bool:

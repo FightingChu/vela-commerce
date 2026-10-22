@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 
-from vela.domain.shared import to_decimal, round_half_up
 from vela.domain.pricing.currency import CurrencyEnum, assert_same_currency
+from vela.domain.shared import round_half_up, to_decimal
 
 
 @dataclass(frozen=True)
@@ -20,18 +20,18 @@ class Price:
             raise ValueError(f"价格不能为负: {amount}")
         object.__setattr__(self, "amount", amount)
 
-    def add(self, other: "Price") -> "Price":
+    def add(self, other: Price) -> Price:
         assert_same_currency(self.currency, other.currency)
         return Price(self.amount + other.amount, self.currency)
 
-    def sub(self, other: "Price") -> "Price":
+    def sub(self, other: Price) -> Price:
         assert_same_currency(self.currency, other.currency)
         return Price(self.amount - other.amount, self.currency)
 
-    def mul(self, qty) -> "Price":
+    def mul(self, qty) -> Price:
         return Price(self.amount * to_decimal(qty), self.currency).quantize()
 
-    def quantize(self) -> "Price":
+    def quantize(self) -> Price:
         return Price(
             round_half_up(self.amount, self.currency.minor_units),
             self.currency,

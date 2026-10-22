@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
+from vela.domain.shared.events import payload_of
 from vela.messaging import get_bus
 from vela.messaging.outbox import OutboxRepository
-from vela.domain.shared.events import payload_of
 
 
 def publish_to_bus(event: dict) -> int:

@@ -6,8 +6,6 @@
 
 from __future__ import annotations
 
-from decimal import Decimal
-
 from sqlalchemy.orm import Session
 
 from vela.db.session import current_session

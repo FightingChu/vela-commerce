@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # http_v1.py -- v1 时代的老 HTTP 客户端,基于 urllib
 # v2 用了新封装之后这里冻结。老对账脚本、老报表还在 import,别删。
 

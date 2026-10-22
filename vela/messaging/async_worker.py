@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import asyncio
+import contextlib
 
 from vela.config.clocks import SystemClock
 from vela.config.logging import get_logger
@@ -62,10 +63,8 @@ class BaseAsyncWorker:
     async def run_forever(self, stop_event: asyncio.Event) -> None:
         while not stop_event.is_set():
             await self.run_once()
-            try:
+            with contextlib.suppress(asyncio.TimeoutError):
                 await asyncio.wait_for(stop_event.wait(), timeout=self.poll_interval)
-            except asyncio.TimeoutError:
-                pass
         log.info("async_worker_stopped", worker=type(self).__name__)
 
 

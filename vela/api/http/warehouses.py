@@ -14,7 +14,7 @@ bp = Blueprint("warehouses", __name__, url_prefix="/api/v1/warehouses")
 
 @bp.get("")
 def list_warehouses():
-    from sqlalchemy import func, select
+    from sqlalchemy import select
 
     rows = db().execute(select(StockModel.warehouse).distinct().order_by(StockModel.warehouse)).all()
     return jsonify({"items": [r[0] for r in rows]})

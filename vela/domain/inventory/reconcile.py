@@ -6,8 +6,6 @@ diff,差异行进 EVENT_STOCKTAKE_VARIANCE,汇总进 EVENT_RECONCILE_DONE。
 
 from __future__ import annotations
 
-from typing import Optional
-
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -48,7 +46,7 @@ def diff(snapshot_a: Snapshot, snapshot_b: Snapshot) -> list[dict]:
     return out
 
 
-def emit_reconcile_event(diff_rows: list[dict], *, trace: Optional[str] = None) -> dict:
+def emit_reconcile_event(diff_rows: list[dict], *, trace: str | None = None) -> dict:
     return make_event(
         EVENT_RECONCILE_DONE,
         {

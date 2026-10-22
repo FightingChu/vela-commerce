@@ -11,11 +11,6 @@ ReportResult。导出走 csv_writer.write_csv。
   4. 本文件末尾加 import(注册靠副作用,同 #VT-2153 的教训)
 """
 
-from vela.reports.columns import Column, ReportResult
-from vela.reports.csv_writer import clip_cell, write_csv
-from vela.reports.period import parse_granularity, resolve_period
-from vela.reports.registry import build_report, get_builder, list_reports, register_report
-
 # ---- 全量挂载 builder(注册靠 import 副作用) ----
 from vela.reports import (  # noqa: F401
     coupon_usage,
@@ -27,16 +22,20 @@ from vela.reports import (  # noqa: F401
     sales_daily,
     settlement_summary,
 )
+from vela.reports.columns import Column, ReportResult
+from vela.reports.csv_writer import clip_cell, write_csv
+from vela.reports.period import parse_granularity, resolve_period
+from vela.reports.registry import build_report, get_builder, list_reports, register_report
 
 __all__ = [
     "Column",
     "ReportResult",
-    "clip_cell",
-    "write_csv",
-    "parse_granularity",
-    "resolve_period",
     "build_report",
+    "clip_cell",
     "get_builder",
     "list_reports",
+    "parse_granularity",
     "register_report",
+    "resolve_period",
+    "write_csv",
 ]

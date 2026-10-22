@@ -16,8 +16,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from vela.config.constants import SETTLEMENT_DEFAULT_TERMS_DAYS
 from vela.db import (
-    Base,
     MONEY_COLUMN,
+    Base,
     PkMixin,
     SoftDeleteMixin,
     TenantColumnMixin,
@@ -29,7 +29,7 @@ from vela.domain.settlement.states import SettlementStatus
 from vela.domain.shared import ZERO
 
 if TYPE_CHECKING:  # pragma: no cover
-    from vela.domain.shared import StateMachine
+    pass
 
 
 class LineKind(str, enum.Enum):
@@ -66,7 +66,7 @@ class SettlementModel(
     # 幂等键 "settlement_push:<token>"。可空:老调用方不带 token 的还不少
     idem_key: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
 
-    lines: Mapped[list["SettlementLineModel"]] = relationship(
+    lines: Mapped[list[SettlementLineModel]] = relationship(
         order_by="SettlementLineModel.id", cascade="all, delete-orphan"
     )
 

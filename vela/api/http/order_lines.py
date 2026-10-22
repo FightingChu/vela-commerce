@@ -30,7 +30,7 @@ def list_by_order(order_sn: str):
     # 行挂在订单下,先定位订单(带租户过滤),再拉行
     order = OrderRepository(db()).get_by_sn(order_sn)
     lines = OrderRepository(db()).load_lines(order.id)
-    return jsonify({"order_sn": order_sn, "items": [_view(l) for l in lines]})
+    return jsonify({"order_sn": order_sn, "items": [_view(line) for line in lines]})
 
 
 @bp.get("/<int:line_id>")

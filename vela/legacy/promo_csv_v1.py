@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # promo_csv_v1.py -- 促销码 CSV 导入,v1 营销后台用
 # 2021-11 迁 v2 后冻结。运营一年用不了一次,但双十一前肯定有人翻出来跑。
 
@@ -42,7 +41,7 @@ def import_promo_codes(path):
     """
     result = []
     print("[promo_v1] importing %s" % path)
-    f = open(path, "r", encoding="utf-8-sig")
+    f = open(path, encoding="utf-8-sig")
     try:
         reader = csv.DictReader(f)
         for i, row in enumerate(reader):

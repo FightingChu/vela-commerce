@@ -5,8 +5,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Any, Sequence
+from typing import Any
 
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
@@ -81,6 +82,5 @@ def batch_iter(
         rows = session.execute(s.order_by(pk_attr).limit(batch_rows)).scalars().all()
         if not rows:
             return
-        for row in rows:
-            yield row
+        yield from rows
         last_pk = rows[-1].id if hasattr(rows[-1], "id") else rows[-1][0]

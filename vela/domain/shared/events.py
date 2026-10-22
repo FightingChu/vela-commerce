@@ -51,7 +51,7 @@ class EventBatch:
         self.source = source
 
     @classmethod
-    def merge_all(cls, batches: list["EventBatch"]) -> dict:
+    def merge_all(cls, batches: list[EventBatch]) -> dict:
         if not batches:
             return dict(UNAVAILABLE)
         types: dict[str, int] = {}

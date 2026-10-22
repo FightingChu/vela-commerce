@@ -9,7 +9,7 @@ from __future__ import annotations
 from decimal import Decimal
 
 from vela.config.errors import ValidationError
-from vela.domain.shared import to_decimal, round_half_up, allocate_pro_rata
+from vela.domain.shared import allocate_pro_rata, round_half_up, to_decimal
 
 _ONE = Decimal(1)
 

@@ -16,8 +16,5 @@ def checkout_preview(coupons: list[dict], amount) -> dict:
     flag 关时 combine_stack 内部也会退化成 best,两层兜底是有意的。
     """
     best = best_single(coupons, amount)
-    if stack_allowed(coupons):
-        stacked = combine_stack(coupons, amount)
-    else:
-        stacked = best
+    stacked = combine_stack(coupons, amount) if stack_allowed(coupons) else best
     return {"best": best, "stacked": stacked}

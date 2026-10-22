@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """HMAC-SHA256 签名/验签。
 
 报文格式跟支付网关对齐:f"{timestamp}.{body}",签名 hex。

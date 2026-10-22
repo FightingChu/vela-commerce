@@ -14,8 +14,8 @@ from sqlalchemy import Boolean, Integer, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from vela.db import (
-    Base,
     MONEY_COLUMN,
+    Base,
     PkMixin,
     SoftDeleteMixin,
     StrEnumColumn,

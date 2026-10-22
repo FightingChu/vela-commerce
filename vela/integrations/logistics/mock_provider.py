@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """内存模拟物流商。联调/单测用。轨迹是假的但结构是真的。"""
 
 from __future__ import annotations
@@ -46,7 +45,7 @@ class MockLogisticsProvider:
             return CancelResult(ok=False, reason="单号不存在")
         traces = self._waybills[no]
         # 已到 in_transit 之后渠道就拒了,模拟这个行为
-        if any(t.status not in (TRACE_PICKED_UP,) for t in traces):
+        if any(t.status != TRACE_PICKED_UP for t in traces):
             return CancelResult(ok=False, reason="已揽收在途,拒绝取消")
         self.cancelled.add(no)
         return CancelResult(ok=True, reason=reason)

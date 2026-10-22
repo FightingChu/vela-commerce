@@ -53,7 +53,7 @@ class Settings:
     extra: dict = field(default_factory=dict)
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls) -> Settings:
         env = Environment.detect()
         return cls(
             env=env,

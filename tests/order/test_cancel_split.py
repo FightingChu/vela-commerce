@@ -40,7 +40,7 @@ class TestCancel:
 
         assert cancelled.model.status == "cancelled"
         assert "cancelled:用户手滑" in cancelled.model.remark
-        assert [l.line_status for l in cancelled.lines] == ["cancelled", "cancelled"]
+        assert [ln.line_status for ln in cancelled.lines] == ["cancelled", "cancelled"]
         # 预占凭证原样还给库存侧(sku_id * 1000 + qty)
         assert released == [(101001, agg.model.order_sn), (102001, agg.model.order_sn)]
         assert [e["type"] for e in cancelled.events] == ["order.cancelled"]
@@ -73,7 +73,6 @@ class TestSplit:
         agg = svc.create_order(
             7, [{"sku_id": 101, "qty": 1}, {"sku_id": 102, "qty": 1}, {"sku_id": 103, "qty": 1}]
         )
-        original_total = agg.model.total_amount  # 100.00
         agg.allocate_discount(Decimal("12.00"))  # 行摊 2.40 / 3.60 / 6.00
         db_session.flush()
         discounted_total = agg.model.total_amount  # 88.00
@@ -86,15 +85,15 @@ class TestSplit:
         # 优惠守恒:严格等于原优惠
         assert parent.model.discount_amount + child.model.discount_amount == Decimal("12.00")
         # 行级优惠也守恒
-        all_shares = [l.discount_share for l in parent.lines] + [l.discount_share for l in child.lines]
+        all_shares = [ln.discount_share for ln in parent.lines] + [ln.discount_share for ln in child.lines]
         assert sum(all_shares) == Decimal("12.00")
 
         # 选中行(101 的 20 + 103 的 50 = 70)进子单,权重 70/30
         # 12 * 0.7 = 8.40 子单优惠,父单 3.60
         assert child.model.discount_amount == Decimal("8.40")
         assert parent.model.discount_amount == Decimal("3.60")
-        assert [l.sku_id for l in child.lines] == [101, 103]
-        assert [l.sku_id for l in parent.lines] == [102]
+        assert [ln.sku_id for ln in child.lines] == [101, 103]
+        assert [ln.sku_id for ln in parent.lines] == [102]
 
         # 子单是独立单号,CREATED 档,remark 记溯源
         assert child.model.order_sn != parent_sn
@@ -134,7 +133,7 @@ class TestSplit:
         repo = OrderRepository(db_session)
         parent_lines = repo.load_lines(parent.model.id)
         child_lines = repo.load_lines(child.model.id)
-        assert [l.sku_id for l in parent_lines] == [101]
-        assert [l.sku_id for l in child_lines] == [102]
+        assert [ln.sku_id for ln in parent_lines] == [101]
+        assert [ln.sku_id for ln in child_lines] == [102]
         # 行数没变多
         assert len(parent_lines) + len(child_lines) == 2

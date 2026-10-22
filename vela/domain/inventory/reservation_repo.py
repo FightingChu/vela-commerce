@@ -4,7 +4,7 @@ service 只管编排——早期放 service 里结果两处各写一份,对不�
 from __future__ import annotations
 
 import datetime as dt
-from typing import Sequence
+from collections.abc import Sequence
 
 from sqlalchemy import select
 
@@ -88,7 +88,6 @@ class ReservationRepository(Repository[ReservationModel]):
                 f"预占 {reservation_id} 状态 {rsv.status},不可消费",
                 detail={"status": rsv.status},
             )
-        target = qty if qty is not None else rsv.qty
         # 消费按整单走:reserved 一次性还回去,on_hand 由 stock 侧扣
         self._give_back(rsv, rsv.qty)
         rsv.status = ReservationStatus.CONSUMED

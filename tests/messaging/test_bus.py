@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from vela.domain.shared.events import make_event
 from vela.messaging import EventBus, get_bus, publish, subscribe
 

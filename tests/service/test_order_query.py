@@ -6,13 +6,12 @@ from decimal import Decimal
 
 import pytest
 
-import vela.domain.customer  # noqa: F401
-import vela.domain.inventory  # noqa: F401
-import vela.domain.order  # noqa: F401
-import vela.domain.pricing  # noqa: F401
-import vela.domain.promotion  # noqa: F401
+import vela.domain.customer
+import vela.domain.inventory
+import vela.domain.order
+import vela.domain.pricing
+import vela.domain.promotion
 import vela.domain.settlement  # noqa: F401
-
 from vela.domain.order import DefaultPricer, OrderRepository, OrderService
 from vela.service.order_query import get_order_view, list_customer_orders
 
@@ -31,7 +30,7 @@ def orders(svc_session):
 
 
 def test_get_order_view(orders, svc_session):
-    sn1, sn2, _ = orders
+    _sn1, sn2, _ = orders
     view = get_order_view(sn2)
 
     assert view is not None

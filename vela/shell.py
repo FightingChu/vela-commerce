@@ -16,11 +16,11 @@ banner = """vela shell — session 已就绪。
 
 
 def main() -> None:
-    from vela.db.session import current_session
-    from vela.config.settings import get_settings
-    from vela.config.flags import flags
-    from vela.domain.shared import to_decimal, round_half_up
     from vela.config.clocks import utc_now
+    from vela.config.flags import flags
+    from vela.config.settings import get_settings
+    from vela.db.session import current_session
+    from vela.domain.shared import round_half_up, to_decimal
 
     session = current_session()
     ns = {

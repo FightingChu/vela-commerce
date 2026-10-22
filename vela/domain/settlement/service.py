@@ -17,7 +17,7 @@ from vela.config.logging import get_logger
 from vela.domain.settlement import events as settlement_events
 from vela.domain.settlement.models import LineKind, SettlementLineModel, SettlementModel
 from vela.domain.settlement.repository import SettlementRepository
-from vela.domain.settlement.statement import SALE, build_statement
+from vela.domain.settlement.statement import build_statement
 from vela.domain.settlement.states import SettlementStateMachine, SettlementStatus
 from vela.domain.settlement.terms import DEFAULT_FEE_RATE
 from vela.domain.shared import (

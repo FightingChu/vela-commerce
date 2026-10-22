@@ -6,8 +6,8 @@ import pytest
 
 from vela.config.errors import ValidationError
 from vela.domain.pricing.currency import (
-    CurrencyEnum,
     MINOR_UNITS,
+    CurrencyEnum,
     assert_same_currency,
     normalize,
 )
@@ -67,13 +67,13 @@ class TestTaxRate:
 
     def test_apply_exclusive(self):
         rate = TaxRate("0.13")
-        assert rate.apply_to(Decimal("100")) == Decimal("113.00")
+        assert rate.apply_to(Decimal(100)) == Decimal("113.00")
         # 半分进位
         assert rate.apply_to(Decimal("0.05")) == Decimal("0.06")
 
     def test_apply_inclusive(self):
         rate = TaxRate("0.13")
-        assert rate.apply_to(Decimal("113"), inclusive=True) == Decimal("100.00")
+        assert rate.apply_to(Decimal(113), inclusive=True) == Decimal("100.00")
 
     def test_apply_zero_rate(self):
         rate = TaxRate(0)
@@ -82,4 +82,4 @@ class TestTaxRate:
     def test_effective_rate(self):
         rate = TaxRate("0.13")
         # 113 元含税价,名义 13% 外加税,含税口径实际税负 13/113
-        assert rate.effective_rate(Decimal("113")) == Decimal("13") / Decimal("113")
+        assert rate.effective_rate(Decimal(113)) == Decimal(13) / Decimal(113)

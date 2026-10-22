@@ -7,14 +7,12 @@ REFUND 行的费用是负数(按费率退),所以 fee 合计 = 各行 fee 直接
 
 from __future__ import annotations
 
-from decimal import Decimal
-
 from vela.config.errors import ValidationError
 from vela.config.logging import get_logger
 from vela.domain.shared import (
     UNAVAILABLE,
-    EventBatch,
     ZERO,
+    EventBatch,
     payload_of,
     round_half_up,
     to_decimal,

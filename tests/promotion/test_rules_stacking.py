@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """规则与叠券纯逻辑。三种券全分支 + 叠加 flag 开/关两态。"""
 
 from __future__ import annotations
@@ -7,8 +6,9 @@ from decimal import Decimal
 
 import pytest
 
-import vela.domain.promotion.coupon_model  # noqa: F401 确保建表
+import vela.domain.promotion.coupon_model
 import vela.domain.promotion.redemption_model  # noqa: F401
+from vela.config.flags import flags
 from vela.domain.promotion.coupon_model import CouponKind
 from vela.domain.promotion.rules import (
     DiscountRule,
@@ -18,20 +18,19 @@ from vela.domain.promotion.rules import (
     rule_for,
 )
 from vela.domain.promotion.stacking import best_single, combine_stack, stack_allowed
-from vela.config.flags import flags
 
 D = Decimal
 
 
 def _row(kind, **kw):
-    base = dict(
-        code="T1",
-        kind=kind,
-        threshold_amount=D("100"),
-        discount_amount=D("20"),
-        discount_rate=D("0.900"),
-        stackable=False,
-    )
+    base = {
+        "code": "T1",
+        "kind": kind,
+        "threshold_amount": D("100"),
+        "discount_amount": D("20"),
+        "discount_rate": D("0.900"),
+        "stackable": False,
+    }
     base.update(kw)
     return base
 

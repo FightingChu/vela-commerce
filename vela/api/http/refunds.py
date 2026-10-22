@@ -6,7 +6,6 @@ from flask import Blueprint, jsonify, request
 
 from vela.api.middleware import db
 from vela.api.schemas import RefundRequest
-from vela.config.constants import REFUND_SN_PREFIX
 from vela.domain.order.returns import (
     approve_refund,
     mark_refund_done,

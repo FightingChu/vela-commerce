@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """app 工厂 + /healthz。不连库也能跑:探活失败标 degraded,不抛。"""
 
 from __future__ import annotations

@@ -12,9 +12,8 @@ from decimal import Decimal
 
 from sqlalchemy import func, or_, select
 
-from vela.config.errors import NotFoundError
-from vela.db import Repository, not_deleted
 from vela.config.clocks import utc_now
+from vela.db import Repository, not_deleted
 from vela.domain.pricing.models import PriceBookEntryModel, PriceChangeLogModel
 
 

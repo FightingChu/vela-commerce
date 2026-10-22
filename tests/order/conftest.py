@@ -11,10 +11,9 @@ from __future__ import annotations
 
 import pytest
 
+import vela.db.tenant as tenant_mod
 from vela.config.flags import reset_flags
 from vela.config.settings import reset_settings
-
-import vela.db.tenant as tenant_mod
 
 
 @pytest.fixture(autouse=True)

@@ -49,7 +49,7 @@ class TaskLock:
         with self._mu:
             entry = self._held.get(name)
             if entry is not None:
-                holder, expires_at = entry
+                _, expires_at = entry
                 if expires_at > now:
                     return False
                 # 过期锁,顶掉

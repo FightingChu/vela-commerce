@@ -7,8 +7,6 @@ Python 分桶不走 SQL 的 date_trunc/strftime——两个库函数名都对
 
 from __future__ import annotations
 
-from sqlalchemy import select
-
 from vela.db import batch_iter, replica_scope
 from vela.domain.customer.models import CustomerModel
 from vela.reports.base import scoped_select
@@ -25,10 +23,8 @@ def build(*, batch_rows: int | None = None) -> ReportResult:
         # batch_iter 默认拿 columns[0](那是 external_id)
         for cust in batch_iter(session, stmt, batch_rows=batch_rows, pk_attr=CustomerModel.id):
             registered = cust.registered_at
-            if registered is None:  # 老数据有空的,归到 "未知"
-                key = "未知"
-            else:
-                key = f"{registered.year:04d}-{registered.month:02d}"
+            # 老数据有空的,归到 "未知"
+            key = "未知" if registered is None else f"{registered.year:04d}-{registered.month:02d}"
             buckets[key] = buckets.get(key, 0) + 1
 
     rows = [

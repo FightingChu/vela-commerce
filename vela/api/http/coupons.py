@@ -49,7 +49,6 @@ def create_coupon():
 
 @bp.get("")
 def list_coupons():
-    from sqlalchemy import select
 
     offset = request.args.get("offset", 0, type=int)
     limit = request.args.get("limit", type=int)

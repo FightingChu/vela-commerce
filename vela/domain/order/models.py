@@ -15,9 +15,9 @@ from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from vela.db import (
+    MONEY_COLUMN,
     Base,
     JsonColumn,
-    MONEY_COLUMN,
     PkMixin,
     SoftDeleteMixin,
     TenantColumnMixin,
@@ -53,7 +53,7 @@ class OrderModel(
     # 见 order_service.create_order 的注释
     remark: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
-    lines: Mapped[list["OrderLineModel"]] = relationship(
+    lines: Mapped[list[OrderLineModel]] = relationship(
         order_by="OrderLineModel.id", cascade="all, delete-orphan"
     )
 
@@ -91,7 +91,7 @@ class OrderLineModel(TimestampMixin, PkMixin, Base):
     )
 
 
-def load_order_lines(session: "Session", order_id: int) -> list[OrderLineModel]:
+def load_order_lines(session: Session, order_id: int) -> list[OrderLineModel]:
     """按 id 升序取行。聚合构造时用,保证拆单下标稳定。"""
     from sqlalchemy import select
 

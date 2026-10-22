@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import decimal
 from enum import Enum
-from typing import Union
 
 
 class Tier(str, Enum):
@@ -18,7 +17,7 @@ class Tier(str, Enum):
     BLACK = "BLACK"
 
 
-TierLike = Union[Tier, str]
+TierLike = Tier | str
 
 # 折扣系数,结算/定价侧乘单价用。BLACK=0.88 是 2024-11 补充协议里
 # 写死的,要改先过法务,别只在代码里动。

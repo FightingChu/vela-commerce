@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # constants_v1.py -- v1 老常量
 # 别删,老报表脚本还在引用(财务的 monthly_report.py、运营的 promo_check.py)。
 # 2021-11 迁 v2 后冻结。和 vela.config.constants 部分重复是历史原因,见文末。

@@ -8,13 +8,12 @@ from decimal import Decimal
 
 import pytest
 
-import vela.domain.customer  # noqa: F401
-import vela.domain.inventory  # noqa: F401
-import vela.domain.order  # noqa: F401
-import vela.domain.pricing  # noqa: F401
-import vela.domain.promotion  # noqa: F401
+import vela.domain.customer
+import vela.domain.inventory
+import vela.domain.order
+import vela.domain.pricing
+import vela.domain.promotion
 import vela.domain.settlement  # noqa: F401
-
 from vela.config.clocks import utc_now
 from vela.config.errors import TenantError, ValidationError
 from vela.domain.customer import register_customer
@@ -29,7 +28,6 @@ from vela.service.backoffice import (
     grant_to_customers,
     hold,
 )
-
 
 # ---- csv_sink ----
 
@@ -97,7 +95,8 @@ class TestTaskLock:
 
     def test_hold_context(self):
         lock = TaskLock(ttl_seconds=60, clock=FakeClock())
-        with hold(lock, "adjust", owner="op-1"):
+        # 嵌套是语义需要:外层持有中进内层 with 才会真的抢锁抛错,不能合并
+        with hold(lock, "adjust", owner="op-1"):  # noqa: SIM117
             with pytest.raises(LockHeldError):
                 with hold(lock, "adjust", owner="op-2"):
                     pass

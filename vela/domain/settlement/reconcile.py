@@ -5,10 +5,8 @@ delta 约定 = expected - actual(我方 - 渠道),正数表示我方多记。
 
 from __future__ import annotations
 
-from decimal import Decimal
-
-from vela.domain.shared import ZERO, make_event, to_decimal
 from vela.domain.settlement.events import EVENT_SETTLEMENT_RECONCILED
+from vela.domain.shared import ZERO, make_event, to_decimal
 
 
 def diff_statements(ours: dict, theirs: dict) -> list[dict]:

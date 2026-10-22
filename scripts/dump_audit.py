@@ -36,7 +36,7 @@ def main() -> int:
     since = _parse_day(args.since)
     until = _parse_day(args.until)
 
-    out = sys.stdout if args.out == "-" else open(args.out, "w", encoding="utf-8")
+    out = sys.stdout if args.out == "-" else open(args.out, "w", encoding="utf-8")  # noqa: SIM115 stdout 分支不能关
     total = 0
     try:
         with session_scope() as session:

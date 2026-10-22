@@ -7,6 +7,7 @@ PAID -> CANCELLED 没有边:已支付单走退款,不走取消。2024-03 订单
 from __future__ import annotations
 
 import enum
+from typing import ClassVar
 
 from vela.domain.order.order_errors import OrderStateError
 from vela.domain.shared import StateMachine
@@ -47,7 +48,7 @@ def _state_name(value) -> str:
 class OrderStateMachine(StateMachine):
     """transitions 里值是"合法动作名",审计日志靠它区分谁干的。"""
 
-    transitions: dict[str, dict[str, str]] = {
+    transitions: ClassVar[dict[str, dict[str, str]]] = {
         "CREATED": {
             "PAID": "pay",
             "CANCELLED": "cancel",

@@ -30,8 +30,7 @@ class Base(DeclarativeBase):
     def __tablename__(cls) -> str:
         # OrderModel -> orders, InventoryLedgerModel -> inventory_ledgers
         name = cls.__name__
-        if name.endswith("Model"):
-            name = name[: -len("Model")]
+        name = name.removesuffix("Model")
         import re
 
         words = re.findall(r"[A-Z][^A-Z]*", name) or [name]

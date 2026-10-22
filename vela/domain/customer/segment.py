@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import datetime as dt
 import decimal
-from typing import Iterable
+from collections.abc import Iterable
 
 from vela.config.clocks import utc_now
 from vela.domain.customer.tier import Tier, TierLike, as_tier
@@ -66,4 +66,4 @@ def rfm_tier(r: float, f: int, m: decimal.Decimal | float | str) -> str:
 
 
 # Tier 顺手 re-export,消费方少写一个 import
-__all__ = ["segment_by_tier", "segment_by_recency", "rfm_tier", "Tier"]
+__all__ = ["Tier", "rfm_tier", "segment_by_recency", "segment_by_tier"]

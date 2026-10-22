@@ -8,6 +8,7 @@ FAILED 不是"结算失败"的终态语义:push 之后渠道侧清分失败也�
 from __future__ import annotations
 
 import enum
+from typing import ClassVar
 
 from vela.config.errors import ConflictError
 from vela.domain.shared import StateMachine
@@ -32,7 +33,7 @@ def _state_name(value) -> str:
 class SettlementStateMachine(StateMachine):
     """值是合法动作名,审计侧靠它区分谁推的。"""
 
-    transitions: dict[str, dict[str, str]] = {
+    transitions: ClassVar[dict[str, dict[str, str]]] = {
         "DRAFT": {
             "CONFIRMED": "confirm",
             "FAILED": "fail",

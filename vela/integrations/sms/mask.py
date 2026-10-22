@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """短信场景的手机号脱敏。
 
 为什么不 import vela.domain.customer.phone:日志脱敏是横切关注点,

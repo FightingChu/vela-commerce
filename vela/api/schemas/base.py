@@ -9,8 +9,6 @@ from typing import Annotated
 
 from pydantic import AfterValidator
 
-from vela.config.errors import ValidationError
-
 
 def _check_money(v: str) -> str:
     try:

@@ -108,7 +108,7 @@ def test_guarded_job_swallows_exception():
     from vela.jobs.registry import register_job
 
     @register_job("_smoke_boom", trigger="仅测试")
-    def boom(session=None):  # noqa: ARG001
+    def boom(session=None):
         raise RuntimeError("炸给护栏看")
 
     try:

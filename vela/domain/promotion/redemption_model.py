@@ -12,8 +12,8 @@ from sqlalchemy import Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from vela.db import (
-    Base,
     MONEY_COLUMN,
+    Base,
     PkMixin,
     TenantColumnMixin,
     TimestampMixin,

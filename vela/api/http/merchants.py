@@ -9,8 +9,6 @@ from __future__ import annotations
 from flask import Blueprint, jsonify, request
 
 from vela.api.middleware import db
-from vela.config.errors import ValidationError
-from vela.config.settings import get_settings
 from vela.db.pagination import paginate
 from vela.domain.settlement.models import SettlementModel
 from vela.domain.settlement.repository import SettlementRepository
@@ -44,7 +42,6 @@ def merchant_settlements(merchant_id: int):
 
 @bp.get("/<int:merchant_id>/overdue")
 def merchant_overdue(merchant_id: int):
-    from vela.domain.settlement.terms import is_overdue
 
     rows = SettlementRepository(db()).list_overdue(_now())
     rows = [r for r in rows if r.merchant_id == merchant_id]

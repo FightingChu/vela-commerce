@@ -18,15 +18,15 @@ from vela.domain.inventory.reservation import (
 
 
 def _rsv(**kw):
-    base = dict(
-        id=7,
-        sku_id=101,
-        warehouse="MAIN",
-        qty=5,
-        order_sn="VL-TEST",
-        ttl_seconds=900,
-        created_at=dt.datetime(2026, 1, 1, 12, 0, 0, tzinfo=dt.timezone.utc),
-    )
+    base = {
+        "id": 7,
+        "sku_id": 101,
+        "warehouse": "MAIN",
+        "qty": 5,
+        "order_sn": "VL-TEST",
+        "ttl_seconds": 900,
+        "created_at": dt.datetime(2026, 1, 1, 12, 0, 0, tzinfo=dt.timezone.utc),
+    }
     base.update(kw)
     return Reservation(**base)
 

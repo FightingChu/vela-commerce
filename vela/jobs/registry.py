@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import functools
 import time
-from typing import Callable
+from collections.abc import Callable
 
 from vela.config.logging import get_logger
 from vela.jobs import alerts, context, job_run_log, locks, metrics
@@ -21,7 +21,7 @@ log = get_logger(__name__)
 
 
 class JobEntry:
-    __slots__ = ("name", "fn", "trigger", "module")
+    __slots__ = ("fn", "module", "name", "trigger")
 
     def __init__(self, name: str, fn: Callable, trigger: str, module: str):
         self.name = name
@@ -76,7 +76,7 @@ def _guarded(entry: JobEntry, impl: Callable) -> Callable:
         started = time.monotonic()
         try:
             result = impl(*args, **kwargs)
-        except Exception as exc:  # noqa: BLE001 job 进程不许把异常抛给调度器
+        except Exception as exc:
             duration_ms = int((time.monotonic() - started) * 1000)
             metrics.incr(f"job.{entry.name}.failed")
             job_run_log.record(entry.name, ok=False, duration_ms=duration_ms, error=str(exc))

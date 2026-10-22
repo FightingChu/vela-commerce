@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """内存模拟支付网关。单测/联调用,别接进生产路径。
 
 可编程失败:fail_next 压栈,每次 pay/refund 弹出一个按它走。
@@ -10,12 +9,12 @@ import itertools
 
 from vela.integrations.payment.errors import PaymentDeclinedError
 from vela.integrations.payment.gateway import (
-    PaymentRequest,
-    PaymentResult,
     STATUS_FAILED,
     STATUS_PAID,
     STATUS_PENDING,
     STATUS_REFUNDED,
+    PaymentRequest,
+    PaymentResult,
 )
 
 

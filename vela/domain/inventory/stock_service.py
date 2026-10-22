@@ -9,8 +9,8 @@ from __future__ import annotations
 from sqlalchemy.orm import Session
 
 from vela.db import current_session
-from vela.domain.inventory.events import EVENT_STOCK_DEDUCTED, EVENT_STOCK_ROLLED_BACK
 from vela.domain.inventory.errors import InventoryShortageError
+from vela.domain.inventory.events import EVENT_STOCK_DEDUCTED, EVENT_STOCK_ROLLED_BACK
 from vela.domain.inventory.stock_model import LedgerDirection, StockLedgerModel, StockModel
 from vela.domain.inventory.stock_repo import StockRepository
 from vela.domain.shared import make_event

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """短信网关 v2 客户端。
 
 灰度说明:sms_gateway_v2 关闭时这里直接抛 ConflictError——
@@ -52,7 +51,8 @@ class SmsClientV2:
             # 延迟加载内置模板,大多数调用方用默认的就够了
             from vela.integrations.sms.template import default_registry
             registry = default_registry()
-        text = registry.get(template_code).render(**params)
+        # 渲染一次只为提前校验模板参数,实际文案由网关侧渲染
+        registry.get(template_code).render(**params)
 
         data = self._client.request(
             "POST",

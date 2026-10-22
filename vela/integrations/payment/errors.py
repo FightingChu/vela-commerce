@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """支付域错误。错误码 2xxx 段归支付,登记见 docs/error-codes.md。"""
 
 from __future__ import annotations

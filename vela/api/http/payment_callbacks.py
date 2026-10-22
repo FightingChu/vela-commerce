@@ -25,7 +25,7 @@ def receive_callback():
     from vela.integrations.payment.callback import parse_callback
 
     # parse_callback 验签失败抛 CallbackVerifyError(403 档),原样放行给全局 handler
-    headers = {k: v for k, v in request.headers.items()}
+    headers = dict(request.headers.items())
     event = parse_callback(body, headers, secret)
     return jsonify(
         {

@@ -10,7 +10,7 @@ run_all_once 给部署后的冒烟检查和本地联调用,空库也应该全绿
 
 from __future__ import annotations
 
-from typing import Iterable
+from collections.abc import Iterable
 
 from vela.config.logging import get_logger
 from vela.config.settings import get_settings
@@ -40,16 +40,16 @@ def build_scheduler(*, timezone: str | None = None):
         else:
             trigger = CronTrigger.from_crontab(cron, timezone=tz)
             paused = False
-        opts = dict(
-            trigger=trigger,
-            args=[name],
-            id=name,
-            name=name,
-            max_instances=1,  # 上一轮没跑完不许叠,重入由 locks 再兜一层
-            coalesce=True,
-            misfire_grace_time=300,
-            replace_existing=True,
-        )
+        opts = {
+            "trigger": trigger,
+            "args": [name],
+            "id": name,
+            "name": name,
+            "max_instances": 1,  # 上一轮没跑完不许叠,重入由 locks 再兜一层
+            "coalesce": True,
+            "misfire_grace_time": 300,
+            "replace_existing": True,
+        }
         if paused:
             opts["next_run_time"] = None  # apscheduler3 约定:None = 挂起
         sched.add_job(run_job, **opts)

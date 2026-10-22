@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 
-from vela.domain.shared import to_decimal, round_half_up
+from vela.domain.shared import round_half_up, to_decimal
 
 _ONE = Decimal(1)
 #: 超过 50% 的税率按配置错误处理

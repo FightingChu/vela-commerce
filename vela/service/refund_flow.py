@@ -10,7 +10,6 @@ from __future__ import annotations
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from vela.config.errors import ValidationError
 from vela.config.logging import get_logger
 from vela.domain.order import (
     RefundModel,

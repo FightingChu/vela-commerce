@@ -18,7 +18,7 @@ from vela.domain.inventory import events as ev
 from vela.domain.inventory.errors import InventoryShortageError, ReservationExpiredError
 from vela.domain.inventory.reservation_model import ReservationModel, ReservationStatus
 from vela.domain.inventory.reservation_repo import ReservationRepository
-from vela.domain.inventory.stock_model import LedgerDirection, StockModel
+from vela.domain.inventory.stock_model import LedgerDirection
 from vela.domain.inventory.stock_repo import StockRepository
 from vela.domain.shared import make_event
 

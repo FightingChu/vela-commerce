@@ -11,17 +11,6 @@
   4. config_defaults.DEFAULT_CRON 加一行 cron
 """
 
-from vela.jobs.context import JobContext, current_trace, job_session
-from vela.jobs.registry import (
-    get_entry,
-    get_job,
-    job_table,
-    list_jobs,
-    register_job,
-    run_job,
-)
-from vela.jobs.runner import build_scheduler, run_all_once
-
 # ---- 全量挂载任务模块(注册靠 import 副作用) ----
 from vela.jobs import (  # noqa: F401
     audit_archive,
@@ -34,17 +23,27 @@ from vela.jobs import (  # noqa: F401
     stock_reconcile,
     tier_recalculate,
 )
+from vela.jobs.context import JobContext, current_trace, job_session
+from vela.jobs.registry import (
+    get_entry,
+    get_job,
+    job_table,
+    list_jobs,
+    register_job,
+    run_job,
+)
+from vela.jobs.runner import build_scheduler, run_all_once
 
 __all__ = [
     "JobContext",
+    "build_scheduler",
     "current_trace",
-    "job_session",
     "get_entry",
     "get_job",
+    "job_session",
     "job_table",
     "list_jobs",
     "register_job",
-    "run_job",
-    "build_scheduler",
     "run_all_once",
+    "run_job",
 ]

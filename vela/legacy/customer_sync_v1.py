@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # customer_sync_v1.py -- 客户同步老脚本入口
 # 2021-11 迁 v2 后冻结。原先是 crontab 半夜 2 点跑,写死读 /data/export/customer.csv,
 # 现在机器上那个文件早没了,脚本留在仓库里纯粹是当"行为参考"用的——
 # v2 的同步任务有时要对 2019-2021 的同步结果做回溯,得知道当时字段怎么处理的。
 
 import csv
-
 
 # 写死的路径,2019 年的 /data 挂载,现在肯定不存在了
 _INPUT_PATH = "/data/export/customer.csv"
@@ -22,8 +20,7 @@ def _norm_phone(raw):
     if raw is None:
         return ""
     s = str(raw).strip().replace(" ", "").replace("-", "")
-    if s.startswith("+86"):
-        s = s[3:]
+    s = s.removeprefix("+86")
     return s
 
 
@@ -55,8 +52,8 @@ def main():
     """老入口。crontab: 30 2 * * * python -m scripts.customer_sync"""
     print("[sync_v1] start, input=%s" % _INPUT_PATH)
     try:
-        f = open(_INPUT_PATH, "r", encoding="utf-8-sig")
-    except IOError as e:
+        f = open(_INPUT_PATH, encoding="utf-8-sig")
+    except OSError as e:
         print("[sync_v1] input not found, exit: %s" % e)
         return 1
     try:

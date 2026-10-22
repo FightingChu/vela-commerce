@@ -13,14 +13,14 @@ from __future__ import annotations
 from sqlalchemy.orm import Session
 
 from vela.config.errors import ValidationError
-from vela.domain.shared import ZERO, SerialGenerator, allocate_pro_rata, sum_amounts
-from vela.domain.shared import order_sn as make_order_sn
 from vela.domain.order.aggregate import Order
 from vela.domain.order.events import EVENT_ORDER_SPLIT, build_order_event
 from vela.domain.order.models import OrderModel
 from vela.domain.order.order_errors import OrderStateError
 from vela.domain.order.repository import OrderRepository
 from vela.domain.order.states import OrderStatus
+from vela.domain.shared import ZERO, SerialGenerator, allocate_pro_rata, sum_amounts
+from vela.domain.shared import order_sn as make_order_sn
 
 _SERIAL = SerialGenerator()
 

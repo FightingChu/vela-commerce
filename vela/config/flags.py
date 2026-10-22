@@ -5,10 +5,9 @@
 
 from __future__ import annotations
 
-import os
-from typing import Iterable
+from collections.abc import Iterable
 
-from vela.config.settings import _env_bool  # noqa: 没错,就是私有复用,别抄到别处
+from vela.config.settings import _env_bool  # 没错,就是私有复用,别抄到别处
 
 # 已知 flag 清单。True = 打开。
 # 下线老 flag 前先在这里注释一个版本周期,确认没有调用方再删。

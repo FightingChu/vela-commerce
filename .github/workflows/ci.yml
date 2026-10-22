@@ -28,6 +28,9 @@ jobs:
       - name: Install
         run: pip install -e ".[dev]"
 
+      - name: Lint
+        run: ruff check vela/ tests/ scripts/
+
       - name: Pytest
         env:
           VELA_DB_URL: sqlite:///:memory:

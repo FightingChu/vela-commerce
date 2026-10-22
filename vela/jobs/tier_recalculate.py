@@ -10,9 +10,9 @@ from __future__ import annotations
 
 from sqlalchemy import select
 
+from vela.db import batch_iter
 from vela.domain.customer.models import CustomerModel
 from vela.domain.customer.tier import Tier
-from vela.db import batch_iter
 from vela.jobs import context
 from vela.jobs.registry import register_job
 

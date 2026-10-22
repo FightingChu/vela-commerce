@@ -19,8 +19,8 @@ from sqlalchemy.orm import Mapped, Session, mapped_column
 from vela.config.clocks import utc_now
 from vela.config.errors import ValidationError
 from vela.db import (
-    Base,
     MONEY_COLUMN,
+    Base,
     PkMixin,
     TenantColumnMixin,
     TimestampMixin,
@@ -32,8 +32,8 @@ from vela.domain.order.order_errors import DuplicateOrderError, OrderStateError
 from vela.domain.order.repository import OrderRepository
 from vela.domain.order.states import OrderStateMachine, OrderStatus
 from vela.domain.shared import (
-    SerialGenerator,
     ZERO,
+    SerialGenerator,
     build_key,
     normalize_token,
     refund_sn,

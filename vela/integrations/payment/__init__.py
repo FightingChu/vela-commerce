@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """支付适配器。入口看 README.md。"""
 
 from vela.integrations.payment.callback import CB_SCOPE, CallbackEvent, parse_callback
@@ -20,15 +19,15 @@ from vela.integrations.payment.mock_gateway import MockPaymentGateway
 __all__ = [
     "CB_SCOPE",
     "CallbackEvent",
-    "parse_callback",
-    "PaymentError",
-    "PaymentDeclinedError",
-    "GatewayTimeoutError",
-    "DuplicatePaymentError",
     "CallbackVerifyError",
+    "DuplicatePaymentError",
+    "GatewayTimeoutError",
+    "HttpPaymentGateway",
+    "MockPaymentGateway",
+    "PaymentDeclinedError",
+    "PaymentError",
     "PaymentGateway",
     "PaymentRequest",
     "PaymentResult",
-    "HttpPaymentGateway",
-    "MockPaymentGateway",
+    "parse_callback",
 ]

@@ -11,7 +11,7 @@ from decimal import Decimal
 from vela.domain.promotion.coupon_model import CouponKind
 from vela.domain.shared import round_half_up, to_decimal
 
-ZERO = Decimal("0")
+ZERO = Decimal(0)
 _ONE = Decimal(1)
 
 

@@ -17,7 +17,7 @@ from vela.domain.shared import round_half_up, to_decimal
 def money(value) -> str:
     """金额 -> 对外字符串。None 按 0 处理(老数据 paid_amount 有 NULL)。"""
     if value is None:
-        value = Decimal("0")
+        value = Decimal(0)
     return str(round_half_up(to_decimal(value)))
 
 

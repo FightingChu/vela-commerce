@@ -7,7 +7,7 @@
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 from vela.config.errors import NotFoundError
 from vela.config.logging import get_logger

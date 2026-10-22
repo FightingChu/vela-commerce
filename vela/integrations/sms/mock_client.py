@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """内存模拟短信客户端。记录所有发送,断言用。"""
 
 from __future__ import annotations

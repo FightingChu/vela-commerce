@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """简易熔断器。
 
 状态机: closed -> (连续失败达阈值) -> open -> (reset_timeout 后) -> half_open
@@ -11,6 +10,7 @@ half_open 放一个请求过去试,成功回 closed,失败回 open。
 from __future__ import annotations
 
 import time
+
 from vela.config.errors import ExternalServiceError
 from vela.config.logging import get_logger
 

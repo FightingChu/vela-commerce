@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """三方适配器统一出口。
 
 约定:
@@ -8,20 +7,20 @@
 """
 
 from vela.integrations.base import BaseClient, Transport, UrllibTransport
-from vela.integrations.circuit import CircuitBreaker, BreakerOpen
-from vela.integrations.signing import sign, sign_headers, verify
+from vela.integrations.circuit import BreakerOpen, CircuitBreaker
 from vela.integrations.secrets import Secret, get_secret, require_secret
+from vela.integrations.signing import sign, sign_headers, verify
 
 __all__ = [
     "BaseClient",
+    "BreakerOpen",
+    "CircuitBreaker",
+    "Secret",
     "Transport",
     "UrllibTransport",
-    "CircuitBreaker",
-    "BreakerOpen",
+    "get_secret",
+    "require_secret",
     "sign",
     "sign_headers",
     "verify",
-    "Secret",
-    "get_secret",
-    "require_secret",
 ]

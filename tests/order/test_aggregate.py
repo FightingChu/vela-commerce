@@ -22,7 +22,7 @@ def make_order(line_amounts, discount_shares=None):
                 qty=1,
                 unit_price=amount,
                 line_amount=Decimal(amount),
-                discount_share=Decimal((discount_shares or [Decimal("0")] * len(line_amounts))[i]),
+                discount_share=Decimal((discount_shares or [Decimal(0)] * len(line_amounts))[i]),
             )
         )
     return Order(model)
@@ -76,19 +76,19 @@ class TestAllocateDiscount:
 
     def test_zero_discount(self):
         agg = make_order(["10.00", "20.00"])
-        parts = agg.allocate_discount(Decimal("0"))
+        parts = agg.allocate_discount(Decimal(0))
         assert sum(parts) == 0
         assert agg.model.total_amount == Decimal("30.00")
 
     def test_negative_discount_rejected(self):
         agg = make_order(["10.00"])
         with pytest.raises(ValidationError):
-            agg.allocate_discount(Decimal("-1"))
+            agg.allocate_discount(Decimal(-1))
 
     def test_weight_count_mismatch_rejected(self):
         agg = make_order(["10.00", "20.00"])
         with pytest.raises(ValidationError):
-            agg.allocate_discount(Decimal("1"), weights=[1])
+            agg.allocate_discount(Decimal(1), weights=[1])
 
 
 class TestStatusJudgement:

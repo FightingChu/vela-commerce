@@ -7,7 +7,7 @@ expected 不传就只出快照不比对。
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 
 
 class ReconcileRunIn(BaseModel):

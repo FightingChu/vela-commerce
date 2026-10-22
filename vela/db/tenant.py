@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import contextlib
 import threading
-from typing import Iterator
+from collections.abc import Iterator
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column

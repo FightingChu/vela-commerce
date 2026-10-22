@@ -11,17 +11,10 @@
 在 legacy/compat_dict.py 里兼容了半年,现在可以删了。
 """
 
+from vela.service.audit_bridge import bridge, record_admin_action
 from vela.service.checkout import create_checkout
-from vela.service.order_query import get_order_view, list_customer_orders
-from vela.service.inventory_ops import stock_view
-
-from vela.service.order_admin import cancel_with_release, close_stale_orders, split_for_fulfillment
-from vela.service.refund_flow import apply_refund, approve as approve_refund_flow, complete as complete_refund_flow, list_pending as list_pending_refunds
-from vela.service.inventory_admin import adjust_stock, stock_ledger, stock_row
-from vela.service.promotion_ops import apply_coupon_to_order, coupon_view, release_order_coupons
+from vela.service.converters import dt_to_iso, line_to_view, money, order_to_view
 from vela.service.coupon_admin import create_coupon, list_valid, set_enabled
-from vela.service.settlement_ops import push_settlement
-from vela.service.settlement_admin import find_by_period, list_overdue, settlement_view
 from vela.service.customer_ops import (
     change_tier,
     customer_view,
@@ -29,15 +22,10 @@ from vela.service.customer_ops import (
     make_default_address,
     register,
 )
-from vela.service.validation import (
-    require_lines,
-    require_money,
-    require_non_empty_str,
-    require_positive_int,
-    require_sn,
-)
-from vela.service.tenant_guard import explicit_tenant, tenant_or_default
 from vela.service.error_mapping import status_of, to_payload, to_response
+from vela.service.idempotency_store import IdempotencyStore, check_and_mark, get_global_store
+from vela.service.inventory_admin import adjust_stock, stock_ledger, stock_row
+from vela.service.inventory_ops import stock_view
 from vela.service.lock_keys import (
     build_lock_key,
     coupon_lock_key,
@@ -45,13 +33,27 @@ from vela.service.lock_keys import (
     settlement_lock_key,
     stock_lock_key,
 )
-from vela.service.trace import child_trace, ensure_trace
-from vela.service.converters import dt_to_iso, line_to_view, money, order_to_view
 from vela.service.notifiers import enqueue_outbox, fanout, publish_to_bus
-from vela.service.audit_bridge import bridge, record_admin_action
-from vela.service.idempotency_store import IdempotencyStore, check_and_mark, get_global_store
+from vela.service.order_admin import cancel_with_release, close_stale_orders, split_for_fulfillment
+from vela.service.order_query import get_order_view, list_customer_orders
+from vela.service.promotion_ops import apply_coupon_to_order, coupon_view, release_order_coupons
+from vela.service.refund_flow import apply_refund
+from vela.service.refund_flow import approve as approve_refund_flow
+from vela.service.refund_flow import complete as complete_refund_flow
+from vela.service.refund_flow import list_pending as list_pending_refunds
+from vela.service.settlement_admin import find_by_period, list_overdue, settlement_view
+from vela.service.settlement_ops import push_settlement
+from vela.service.tenant_guard import explicit_tenant, tenant_or_default
+from vela.service.trace import child_trace, ensure_trace
+from vela.service.validation import (
+    require_lines,
+    require_money,
+    require_non_empty_str,
+    require_positive_int,
+    require_sn,
+)
 
-__all__ = [
+__all__ = [  # noqa: RUF022 按域分组,不按字典序
     # 契约
     "create_checkout",
     "get_order_view",

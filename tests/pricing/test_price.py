@@ -48,17 +48,17 @@ class TestArithmetic:
 
     def test_add_currency_mismatch(self):
         with pytest.raises(ValidationError):
-            cny("1.00").add(Price(Decimal("1"), CurrencyEnum.USD))
+            cny("1.00").add(Price(Decimal(1), CurrencyEnum.USD))
 
     def test_sub_currency_mismatch(self):
         with pytest.raises(ValidationError):
-            cny("1.00").sub(Price(Decimal("1"), CurrencyEnum.JPY))
+            cny("1.00").sub(Price(Decimal(1), CurrencyEnum.JPY))
 
     def test_mul(self):
         assert cny("12.345").mul(3).amount == Decimal("37.04")
 
     def test_mul_keeps_currency(self):
-        p = Price(Decimal("1"), CurrencyEnum.USD).mul(2)
+        p = Price(Decimal(1), CurrencyEnum.USD).mul(2)
         assert p.currency is CurrencyEnum.USD
         assert p.amount == Decimal("2.00")
 
@@ -69,7 +69,7 @@ class TestQuantize:
 
     def test_jpy_zero_minor_units(self):
         p = Price(Decimal("1234.5"), CurrencyEnum.JPY).quantize()
-        assert p.amount == Decimal("1235")  # 0 位,直接取整
+        assert p.amount == Decimal(1235)  # 0 位,直接取整
 
     def test_snapshot(self):
         snap = cny("9.999").snapshot()
